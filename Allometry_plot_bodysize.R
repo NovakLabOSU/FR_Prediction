@@ -1,10 +1,8 @@
 ################################################################################
-### Allometric scaling predictions
+### Supplementary plots with body size for allometric scaling relationships
 ################################################################################
 
-### load packages
-
-library(ggplot2); library(dplyr); library(cowplot); 
+library(dplyr); library(ggplot2); library(cowplot); 
 
 ### load data
 
@@ -42,7 +40,7 @@ ggplot(data = forage, aes(x = log(PredMass_g), y = log(PredMetabolism), color = 
 predtopreyfit <- lm(log(Mass_g) ~ log(PredMass_g), data = forage) 
 
 ggplot(data = forage, aes(x = log(PredMass_g), y = log(Mass_g))) + geom_point() + 
-  geom_smooth(method = 'lm')
+  geom_smooth(method = 'lm') 
 
 preytopredfit <- lm(log(PredMass_g) ~ log(Mass_g), data = forage)
 
@@ -71,27 +69,53 @@ lm(log(Obs_h/Mass_g) ~ log(PredMass_g), data = forage)
 
 confint(lm(log(Obs_h/Mass_g) ~ log(PredMass_g), data = forage))
 
-### scaling plots for manuscript
+### plots with prey mass and predator-prey mass ratio 
 
-scr_lines <- data.frame(slopes = c(0.8, 0.82), intercepts = c(-2.14, -0.42), lines = c('Observed', 'Predicted'))
-
-scr_plot <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_a))) + geom_point(alpha = 0.25) + 
+scr_plot_preysize <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_a), color = log(Mass_g))) + geom_point(alpha = 0.25) + 
   theme_cowplot() + xlab('log Predator Mass') + ylab('log Observed Space\nClearance Rate') + 
   geom_abline(aes(slope = slopes, intercept = intercepts, linetype = lines), data = scr_lines, linewidth = 1) + 
-  labs(linetype = 'Line')
-  
+  labs(linetype = 'Line') + scale_color_viridis_c(name = 'log Prey Mass (g)')
+
+
+scr_plot_sizeratio <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_a), color = log(PredMass_g/Mass_g))) + geom_point(alpha = 0.25) + 
+  theme_cowplot() + xlab('log Predator Mass') + ylab('log Observed Space\nClearance Rate') + 
+  geom_abline(aes(slope = slopes, intercept = intercepts, linetype = lines), data = scr_lines, linewidth = 1) + 
+  labs(linetype = 'Line') + scale_color_viridis_c(name = 'log Predator-Prey\nMass Ratio')
+
+### put plots together and save
+
+scr_allometry_sizeplots <- plot_grid(scr_plot_preysize, scr_plot_sizeratio,
+                                     nrow = 1, labels = 'AUTO')
+
+save_plot(filename = 'scr_allometry_sizeplots.png', plot = scr_allometry_sizeplots,
+          nrow = 1, ncol = 2, bg = 'white')
+
+
+### handling time plots
+
 handling_lines <- data.frame(slopes = c(-0.85, -0.86), intercepts = c(0.24, 0.11), lines = c('Observed', 'Predicted'))
 
-handling_plot <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_h/Mass_g))) + geom_point(alpha = 0.25) + 
+handling_allometry_preysize <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_h/Mass_g), color = log(Mass_g))) + geom_point(alpha = 0.25) + 
   theme_cowplot() + xlab('log Predator Mass') + ylab('log Handling Time/Prey Mass') +
   geom_abline(aes(slope = slopes, intercept = intercepts, linetype = lines), data = handling_lines, linewidth = 1) + 
-  labs(linetype = 'Line')
+  labs(linetype = 'Line') + scale_color_viridis_c(name = 'log Prey Mass (g)')
 
-### put plots together
+handling_allometry_sizeratio <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_h/Mass_g), color = log(PredMass_g/Mass_g))) + geom_point(alpha = 0.25) + 
+  theme_cowplot() + xlab('log Predator Mass') + ylab('log Handling Time/Prey Mass') +
+  geom_abline(aes(slope = slopes, intercept = intercepts, linetype = lines), data = handling_lines, linewidth = 1) + 
+  labs(linetype = 'Line') + scale_color_viridis_c(name = 'log Predator-Prey\nMass Ratio')
 
-together <- plot_grid(scr_plot, handling_plot, nrow = 1, labels = 'AUTO', axis = 'tblr', align = 'hv')
+### save plots
 
-save_plot(filename = 'allometry_plot.png', plot = together, ncol = 2, nrow = 1, bg = 'white', base_asp = 1.4)
+handling_size_plots <- plot_grid(handling_allometry_preysize, handling_allometry_sizeratio,
+                                 nrow = 1, labels = 'AUTO')
+
+save_plot(filename = 'handling_allometry_size_plots.png', plot = handling_size_plots,
+          nrow = 1, ncol = 2, bg = 'white')
+
+
+
+
 
 
 
