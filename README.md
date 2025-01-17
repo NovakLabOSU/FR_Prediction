@@ -36,7 +36,19 @@ AllometryPredictions.R -- This R file performs the regressions necessary to asse
 
 Figure1.R -- This R file contains the code to produce Figure 1 of the main text of the associated manuscript using plots created in the Predicting_FR_Parameters.R and FieldPredictions.R files and saved as RData files.
 
-SensitivityAnalysis.R -- This R file performs the sensitivity analysis of the space clearance rate and handling time predictions that are presented in Supplemental Material S2 of the associated manuscript
+SensitivityAnalysis.R -- This R file performs the sensitivity analysis of the space clearance rate and handling time predictions that are presented in Supplemental Material S5 of the associated manuscript
+
+Allometry_plot_bodysize.R -- This R file creates Figures S4.4 and S4.5
+
+Sensitivity_Analysis_Predictions.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of space clearance rates and handling times.
+
+Sensitivity_Analysis_AllometricScalings.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the allometric scaling of the space clearance rates and handling times.
+
+Sensitivity_avh.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the relationship between space clearance rates and handling times.
+
+Sensitivity_popsize_halfsaturation.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the relationship high prey densities and the half-saturation constant of the functional response.
+
+SuppPlots_sizecolor.R -- This R file contains the code to create Figures S4.1-S4.3.
 
 References
 
