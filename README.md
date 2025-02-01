@@ -24,21 +24,31 @@ DataManipulation.R -- This R file takes the FoRAGE_db_V4_Sept_17_2023_mod.csv fi
 
 ### Files and code to perform analyses and make plots
 
-forage_modified.csv -- This csv file is created by DataManipulation.R and contains the FoRAGE database along with along with the predicted abundances of prey and metabolic rates of predators.
+forage_modified.csv -- This csv file is created by DataManipulation.R and contains the FoRAGE database along with the predicted abundances of prey and metabolic rates of predators.
 
-Predicting_FR_Parameters.R -- This R file does the bulk of the analyses that are presented in the main text. That is, this file predicts the values of the space clearance rates and handling times of each study, examines the predicted relationship between the half-saturation constant and high prey abundances, and examines the predicted relationship between the space clearance rates and handling times.
+Predicting_FR_Parameters.R -- This R file does the bulk of the analyses that are presented in the main text. That is, this file predicts the values of the space clearance rates and handling times of each study, examines the predicted relationship between the half-saturation constant and high prey abundances, and examines the predicted relationship between the space clearance rates and handling times. This file also produces SCR_Prediction_Plot.RData and h_Prediction_Plot.RData that are used by Figure1.R to create Figure 1 of the manuscript.
 
 FieldPredatorPrey.csv -- This csv file contains system-specific estimates of the parameters necessary in the theory to predict space clearance rates and handling times for a subset of studies in FoRAGE that are field studies for which the required information could be found and which met the criteria for inclusion laid out in the methods section of the associated paper. 
 
-FieldPredictions.R -- This R file uses the FieldPredatorPrey.csv file to make space clearance rate and handling time predictions for the field studies.
+FieldPredictions.R -- This R file uses the FieldPredatorPrey.csv file to make space clearance rate and handling time predictions for the field studies. This file produces FieldHandlingPlot.RData, FieldAttackRatePlot.RData, and FieldPlotLegend.RData which are used by Figure1.R to produce Figure 1
 
 AllometryPredictions.R -- This R file performs the regressions necessary to assess the theory's predicted allometric scaling relationships of the functional response parameters and then assesses the correspondence between the predicted and observed allometric relationships.
 
-Figure1.R -- This R file contains the code to produce Figure 1 of the main text of the associated manuscript using plots created in the Predicting_FR_Parameters.R and FieldPredictions.R files which are saved within files created in those scripts as .RData and .RData.
+Figure1.R -- This R file contains the code to produce Figure 1 of the main text of the associated manuscript using plots created in the Predicting_FR_Parameters.R and FieldPredictions.R files and saved as RData files.
 
-Figure2.R -- This R file creates Figure 2 of the main text 
+SensitivityAnalysis.R -- This R file performs the sensitivity analysis of the space clearance rate and handling time predictions that are presented in Supplemental Material S5 of the associated manuscript
 
-SensitivityAnalysis.R -- This R file performs the sensitivity analysis of the space clearance rate and handling time predictions that are presented in Supplemental Material S2 of the associated manuscript
+Allometry_plot_bodysize.R -- This R file creates Figures S4.4 and S4.5
+
+Sensitivity_Analysis_Predictions.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of space clearance rates and handling times.
+
+Sensitivity_Analysis_AllometricScalings.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the allometric scaling of the space clearance rates and handling times.
+
+Sensitivity_avh.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the relationship between space clearance rates and handling times.
+
+Sensitivity_popsize_halfsaturation.R -- This R file performs a sensitivity analysis to examine the effects of different assumptions for values of I_S and the percentiles used to estimate N_{high} and N_{low} on the predictions of the relationship high prey densities and the half-saturation constant of the functional response.
+
+SuppPlots_sizecolor.R -- This R file contains the code to create Figures S4.1-S4.3.
 
 References
 
