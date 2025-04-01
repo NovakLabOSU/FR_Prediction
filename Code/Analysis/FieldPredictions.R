@@ -6,9 +6,17 @@
 
 library(dplyr); library(ggplot2); library(cowplot); library(lmodel2)
 
+### set directory to Raw Data folder 
+
+#setwd("~/GitHub/FR_Prediction/Raw Data")
+
 ### load data
 
 data <- read.csv('FieldPredatorPrey.csv')
+
+### set directory to Processed Data folder
+
+#setwd("~/GitHub/FR_Prediction/Processed Data")
 
 ### load forage to get measured a and h values
 
@@ -56,23 +64,6 @@ abline(a = 0, b = 1)
 
 ### Field predictions of SCR's and Handling times
 
-field_a <- ggplot(data = data, aes(x = log(Fitted_a), y = log(Predicted_a))) + 
-  geom_point() + 
-  geom_abline(slope = 1, intercept = 0) + theme_cowplot() + 
-  xlab('Observed\n ln Space Clearance Rate') + ylab('Predicted\n ln Space Clearance Rate')
-
-field_h <- ggplot(data = data, aes(x = log(Fitted_h), y = log(Predicted_h))) + 
-  geom_point() + 
-  geom_abline(slope = 1, intercept = 0) + theme_cowplot() +
-  xlab('Observed\n ln Handling Time') + ylab('Predicted\n ln Handling Time')
-
-field_pred <- plot_grid(field_a, field_h, nrow = 1)
-
-save_plot(filename = 'FieldPredictions.png', plot = field_pred,
-          nrow = 1, ncol = 2, bg = 'white')
-
-### plots for talk
-
 # regressions 
 
 Field_Attack_Rate <- ggplot(data = data, aes(x = log(Fitted_a), y = log(Predicted_a), color = System, shape = System)) + 
@@ -90,6 +81,9 @@ Field_Handling_Time <- ggplot(data = data, aes(x = log(Fitted_h), y = log(Predic
 
 Field_Handling_Time <- Field_Handling_Time + theme(legend.position = 'none')
 
+### set directory to outputs folder
+
+#setwd("~/GitHub/FR_Prediction/Outputs")
 
 save_plot(filename = 'FieldAttackPlot.png', plot = Field_Attack_Rate, bg = 'white')
 

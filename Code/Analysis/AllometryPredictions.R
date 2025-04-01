@@ -6,6 +6,10 @@
 
 library(ggplot2); library(dplyr); library(cowplot); 
 
+### set directory to Processed Data Folder
+
+# setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -90,6 +94,10 @@ handling_plot <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs_h/Ma
 ### put plots together
 
 together <- plot_grid(scr_plot, handling_plot, nrow = 1, labels = 'AUTO', axis = 'tblr', align = 'hv')
+
+### set directory to Outputs folder
+
+#setwd("~/GitHub/FR_Prediction/Outputs")
 
 save_plot(filename = 'allometry_plot.png', plot = together, ncol = 2, nrow = 1, bg = 'white', base_asp = 1.4)
 

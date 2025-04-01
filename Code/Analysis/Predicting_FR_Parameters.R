@@ -4,7 +4,11 @@
 
 ### load packages
 
-library(ggplot2); library(cowplot); library(dplyr); library(lmodel2) 
+library(ggplot2); library(cowplot); library(dplyr); library(lmodel2); library(ggpmisc)
+
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
 
 ### load data
 
@@ -29,15 +33,28 @@ forage <- forage %>% mutate(Pred_a = PredMetabolism/(PreyAbundance_10*energy_den
 
 ### major axis regression of predicted scr on observed
 
-lmodel2(log(Pred_a) ~ log(Obs_a), data = forage)
+ma_scr <- lmodel2(log(Pred_a) ~ log(Obs_a), data = forage)
 
 cor(log(forage$Obs_a), log(forage$Pred_a))
+
+### set up confidence bands for SCR plot
+
+ci_scr <- predict(ma_scr, method = 'MA', interval = "confidence")
+
+ci_scr <- cbind(forage$Obs_a, ci_scr)
+
+colnames(ci_scr)[1] <- "Obs_a"
 
 ### plot of SCR
 
 SCR_plot <- ggplot(data = forage, aes(x = log(Obs_a), y = log(Pred_a))) + geom_point(alpha = 0.25) +
   geom_abline(intercept = 0, slope = 1, linewidth = 1, linetype = 'dashed') + theme_cowplot() + geom_abline(slope = 0.845, intercept = 0.73, linewidth = 1) +
-  xlab('log Observed Space\nClearance Rate') + ylab('log Predicted Space\nClearance Rate')
+  xlab('log Observed Space\nClearance Rate') + ylab('log Predicted Space\nClearance Rate') + 
+  geom_ribbon(data = ci_scr, aes(x = log(Obs_a), ymin = lwr, ymax = upr), inherit.aes = FALSE, alpha = 0.5)
+
+### set directory to Outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
 
 save_plot(filename = 'SCR_Prediction_Plot.png', plot = SCR_plot)
 
@@ -49,16 +66,25 @@ saveRDS(SCR_plot, file = 'SCR_Prediction_Plot.RData')
 
 # linear model
 
-lm(log(Pred_h) ~ log(Obs_h), data = forage)
-
-lmodel2(log(Pred_h) ~ log(Obs_h), data = forage)
+ma_handling <- lmodel2(log(Pred_h) ~ log(Obs_h), data = forage)
 
 cor(log(forage$Pred_h), log(forage$Obs_h))
+
+### set up confidence bands for handling time plot
+
+ci_handling <- predict(ma_handling, method = 'MA', interval = "confidence")
+
+ci_handling <- cbind(forage$Obs_h, ci_handling)
+
+colnames(ci_handling)[1] <- "Obs_h"
+
+### make plot
 
 h_plot <- ggplot(data = forage, aes(x = log(Obs_h), y = log(Pred_h))) + geom_point(alpha = 0.25) + 
   geom_abline(intercept = 0, slope = 1, linewidth = 1, linetype = 'dashed') + theme_cowplot() +
   geom_abline(intercept = 1.04, slope = 1.15, linewidth = 1) +
-  xlab('log Observed Handling Time') + ylab('log Predicted Handling Time')
+  xlab('log Observed Handling Time') + ylab('log Predicted Handling Time') + 
+  geom_ribbon(data = ci_handling, aes(x = log(Obs_h), ymin = lwr, ymax = upr), inherit.aes = FALSE, alpha = 0.5)
 
 save_plot(filename = 'h_Prediction_Plot_constratio.png', plot = h_plot)
 
