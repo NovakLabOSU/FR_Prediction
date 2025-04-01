@@ -6,6 +6,10 @@
 
 library(dplyr); library(ggplot2); library(cowplot); library(RColorBrewer); library(forcats); library(lmodel2)
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -110,6 +114,12 @@ sens_plot_halfsat <- ggplot(data = sens_data, aes(x = log(halfsat), y = log(high
   geom_abline(data = mareg, aes(slope = Slope, intercept = Intercept), size = 1) + 
   theme_cowplot() + 
   xlab(expression('log'~'1/ah')) + ylab(expression(log~"(1-"*I[S]*")"*N[high]*"/"*I[S]))
+
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save plot
 
 save_plot(filename = 'sens_plot_halfsat.png', plot = sens_plot_halfsat, bg = 'white', nrow = 1.5, ncol = 1.5)
 

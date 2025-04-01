@@ -6,6 +6,10 @@
 
 library(tidyverse); library(cowplot); library(brms);
 
+### set directory to raw data folder
+
+setwd("~/GitHub/FR_Prediction/Raw Data")
+
 ### load metabolism data
 
 met_data <- read.csv('Metabolism.csv')
@@ -76,6 +80,10 @@ prokaryote_met <- met_data %>% filter(Major_taxa == 'Prokaryote')
 prokaryote_met_fit <- brm(log(Metabolism_kJDay) ~ 0 + Intercept + log(Mass_g), data = prokaryote_met, backend = 'cmdstanr')
 
 summary(prokaryote_met_fit)
+
+### set directory to output folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
 
 ### save RData
 

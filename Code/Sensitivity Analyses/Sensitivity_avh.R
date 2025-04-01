@@ -6,6 +6,10 @@
 
 library(dplyr); library(ggplot2); library(cowplot); library(RColorBrewer); library(forcats); library(lmodel2)
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -100,6 +104,12 @@ avh_sens_plot <- ggplot(data = sens_data, aes(x = h_mod, y = log(Obs_a))) +
   geom_abline(data = mareg, aes(slope = Slope, intercept = Intercept), size = 1) + 
   theme_cowplot() + 
   xlab(expression(log~I[S]*"/"*"(1-"*I[S]*")"*N[high]*"-"*log~h)) + ylab("log Space Clearance Rate")
+
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save plot
 
 save_plot(filename = 'avh_sens_plot.png', plot = avh_sens_plot, bg = 'white', ncol = 1.5, nrow = 1.5)
 

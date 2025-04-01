@@ -6,6 +6,10 @@
 
 library(ggplot2); library(dplyr); library(cowplot); library(RColorBrewer); library(forcats)
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -161,6 +165,12 @@ nlow30_aplot <-ggplot(data = sens_data_a_nlow30, aes(x = log(Obs_a), y = log(Pre
   ylab("log Predicted Space Clearance Rate")
 
 aplots_together <- plot_grid(nlow5_aplot, nlow10_aplot, nlow30_aplot, nrow = 1, labels = "AUTO")
+
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save plot
 
 save_plot(filename = 'Sensitivity_a.png', plot = aplots_together, nrow =1, ncol = 3, bg = 'white',
           base_asp = 1.4)

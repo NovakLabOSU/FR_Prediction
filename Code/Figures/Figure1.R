@@ -6,6 +6,10 @@
 
 library(dplyr); library(ggplot2); library(cowplot);
 
+### set directory to Outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
 ### load plots that we want to combine
 
 h_pred_plot <- readRDS('h_Prediction_Plot.RData')

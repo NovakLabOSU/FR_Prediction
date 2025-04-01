@@ -4,6 +4,10 @@
 
 library(dplyr); library(ggplot2); library(cowplot); 
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -86,6 +90,12 @@ scr_plot_sizeratio <- ggplot(data = forage, aes(x = log(PredMass_g), y = log(Obs
 
 scr_allometry_sizeplots <- plot_grid(scr_plot_preysize, scr_plot_sizeratio,
                                      nrow = 1, labels = 'AUTO')
+
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save plot
 
 save_plot(filename = 'scr_allometry_sizeplots.png', plot = scr_allometry_sizeplots,
           nrow = 1, ncol = 2, bg = 'white')

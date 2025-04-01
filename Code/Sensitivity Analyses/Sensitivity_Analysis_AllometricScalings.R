@@ -6,6 +6,10 @@
 
 library(ggplot2); library(dplyr); library(cowplot);
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -137,6 +141,11 @@ scr_allometry_sensplot <- ggplot(data = forage, aes(x = log(PredMass_g), y = log
   scale_color_brewer(palette = 'Dark2') + guides(color = guide_legend(title = 'Low Prey Density\nPercentile')) + 
   theme_cowplot() + xlab('log Predator Mass (g)') + ylab('log Observed Space\nClearance Rate')
 
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save plot
 
 save_plot(filename = 'scr_allometry_sens_plot.png', plot = scr_allometry_sensplot, bg = 'white')
 

@@ -8,11 +8,21 @@ library(dplyr); library(ggplot2); library(cowplot); library(brms);
 
 ### load bayesian regressions for mass-abundance and metabolic scaling relationships
 
+# set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### load regressions
+
 load('MassAbundanceScaling.RData')
 
 load('Metabolism_RData.RData')
 
 ### need to connect the mass-abundance and metabolic scaling regressions to FoRAGE to get
+
+### set directory to raw data folder
+
+setwd("~/GitHub/FR_Prediction/Raw Data")
 
 ### load FoRAGE
 
@@ -156,7 +166,11 @@ colnames(Metabolism_pred) <- c('PredMetabolism')
 
 forage <- forage %>% bind_cols(Metabolism_pred)
 
-# ### save this data set as a .csv
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
+### save this data set as a .csv
 
 write.csv(forage, file = 'forage_modified.csv', row.names = FALSE)
 

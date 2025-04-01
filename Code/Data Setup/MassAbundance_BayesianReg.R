@@ -6,6 +6,10 @@
 
 library(dplyr); library(ggplot2); library(cowplot); library(brms);
 
+### set directory to raw data folder
+
+setwd("~/GitHub/FR_Prediction/Raw Data")
+
 ### load data
 
 scale_data <- read.csv('AbundanceScaling.csv')
@@ -76,6 +80,12 @@ prokaryote <- scale_data %>% filter(Major_taxa == 'Prokaryote')
 prokaryote_fit <- brm(formula = log(Density_Nm2) ~ 0 + Intercept + log(Mass_g), data = prokaryote, backend = 'cmdstanr')
 
 summary(prokaryote_fit, prob = 0.9)
+
+### set directory to Outputs
+
+setwd("~/GitHub/FR_Prediction/Outputs")
+
+### save environment as RData
 
 save.image(file = 'MassAbundanceScaling.RData')
 

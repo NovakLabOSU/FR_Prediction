@@ -4,6 +4,10 @@
 
 library(dplyr); library(cowplot); library(ggplot2); library(viridisLite);library(lmodel2)
 
+### set directory to processed data folder
+
+setwd("~/GitHub/FR_Prediction/Processed Data")
+
 ### load data
 
 forage <- read.csv('forage_modified.csv')
@@ -53,6 +57,10 @@ scr_sizeratio <- ggplot(data = forage, aes(x = log(Obs_a), y = log(Pred_a), colo
   theme_cowplot() + xlab('log Observed\nSpace Clearance Rate') + 
   ylab('log Predicted\nSpace Clearance Rate') + geom_abline(intercept = 0.73, slope = 0.85, size = 1) + 
   geom_abline(intercept = 0, slope = 1, linetype = 'dashed', size = 1)
+
+### set directory to outputs folder
+
+setwd("~/GitHub/FR_Prediction/Outputs")
 
 ### put these plots together into a single plot
 
@@ -117,30 +125,6 @@ poppred_plots <- plot_grid(poppred_preysize, poppred_predsize, poppred_sizeratio
                            nrow = 1, labels = 'AUTO')
 
 save_plot('poppred_plots_sizes.png', poppred_plots, nrow = 0.75, ncol = 2, bg = 'white')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
